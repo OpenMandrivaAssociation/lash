@@ -64,6 +64,7 @@ Python bindings for the LASH audio session handler.
 
 %prep
 %setup -q
+perl -pi -e 's|lib/python|%{_lib}/python||g' configure
 
 %build
 %configure2_5x --enable-alsa-midi --enable-debug
@@ -72,8 +73,6 @@ Python bindings for the LASH audio session handler.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-mkdir -p %buildroot/%{python_sitearch}
-mv %buildroot/%{python_sitelib}/* %buildroot/%{python_sitearch}/
 
 #menu
 mkdir -p $RPM_BUILD_ROOT%{_menudir}
