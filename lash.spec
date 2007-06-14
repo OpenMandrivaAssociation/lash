@@ -2,14 +2,13 @@
 %define version	0.5.3
 %define release %mkrel 1
 
-%define major	1.1
+%define major	1
 %define libname %mklibname %name %major
 
 Name: 	 	%{name}
 Summary: 	Linux Audio Session Handler
 Version: 	%{version}
 Release: 	%{release}
-Epoch:		1
 
 Source:		%{name}-%{version}.tar.bz2
 URL:		http://www.nongnu.org/lash/
@@ -24,6 +23,7 @@ BuildRequires:	readline-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  ImageMagick
 BuildRequires:	python-devel
+BuildRequires:	swig
 Requires:	python
 
 %description
@@ -46,13 +46,21 @@ Dynamic libraries from %name.
 %package -n 	%{libname}-devel
 Summary: 	Header files and static libraries from %name
 Group: 		Development/C
-Requires: 	%{libname} >= %{epoch}:%{version}
+Requires: 	%{libname} >= %{version}
 Provides: 	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release} 
 Obsoletes: 	%name-devel
 
 %description -n %{libname}-devel
 Libraries and includes files for developing programs based on %name.
+
+%package -n	python-%name
+Summary:	Python bindings for the LASH audio session handler.
+Group:		Development/Python
+Requires:	%name = %{version}-%{release}
+
+%description -n python-%name
+Python bindings for the LASH audio session handler.
 
 %prep
 %setup -q
@@ -64,6 +72,8 @@ Libraries and includes files for developing programs based on %name.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
+mkdir -p %buildroot/%{python_sitearch}
+mv %buildroot/%{python_sitelib}/* %buildroot/%{python_sitearch}/
 
 #menu
 mkdir -p $RPM_BUILD_ROOT%{_menudir}
@@ -112,7 +122,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/%name
 %{_menudir}/%name
-%{python_sitelib}/*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_liconsdir}/%name.png
 %{_iconsdir}/%name.png
@@ -129,3 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 %{_libdir}/*.la
 %{_libdir}/pkgconfig/*
+
+%files -n python-%name
+%defattr(-,root,root)
+%{python_sitearch}/*
