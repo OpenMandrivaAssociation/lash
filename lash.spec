@@ -90,7 +90,6 @@ Icon=%{name}
 Terminal=false
 Type=Application
 Categories=X-MandrivaLinux-Multimedia-Sound;AudioVideo;Audio;
-Encoding=UTF-8
 EOF
 
 #icons
