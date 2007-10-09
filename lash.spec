@@ -55,7 +55,7 @@ Obsoletes: 	%name-devel
 Libraries and includes files for developing programs based on %name.
 
 %package -n	python-%name
-Summary:	Python bindings for the LASH audio session handler.
+Summary:	Python bindings for the LASH audio session handler
 Group:		Development/Python
 Requires:	%name = %{version}-%{release}
 
