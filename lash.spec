@@ -4,6 +4,7 @@
 
 %define major	1
 %define libname %mklibname %name %major
+%define develname %mklibname -d %name
 
 Name: 	 	%{name}
 Summary: 	Linux Audio Session Handler
@@ -12,7 +13,7 @@ Release: 	%{release}
 
 Source:		%{name}-%{version}.tar.bz2
 URL:		http://www.nongnu.org/lash/
-License:	GPL
+License:	GPLv2+
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	gtk2-devel
@@ -43,15 +44,16 @@ Group:          System/Libraries
 %description -n %{libname}
 Dynamic libraries from %name.
 
-%package -n 	%{libname}-devel
+%package -n 	%{develname}
 Summary: 	Header files and static libraries from %name
 Group: 		Development/C
 Requires: 	%{libname} >= %{version}
 Provides: 	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release} 
-Obsoletes: 	%name-devel
+Obsoletes: 	%name-devel < %{version}-%{release}
+Obsoletes:	%mklibname -d lash 1
 
-%description -n %{libname}-devel
+%description -n %{develname}
 Libraries and includes files for developing programs based on %name.
 
 %package -n	python-%name
@@ -75,11 +77,6 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): command="lash_panel" icon="%{name}.png" needs="x11" title="LASH Control Panel" longtitle="Audio session manager" section="Multimedia/Sound" xdg="true"
-EOF
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -89,7 +86,7 @@ Exec=%{_bindir}/%{name}_panel
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=X-MandrivaLinux-Multimedia-Sound;AudioVideo;Audio;
+Categories=AudioVideo;Audio;AudioVideoEditing;
 EOF
 
 #icons
@@ -119,7 +116,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README README.SECURITY TODO
 %{_bindir}/*
 %{_datadir}/%name
-%{_menudir}/%name
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_liconsdir}/%name.png
 %{_iconsdir}/%name.png
@@ -129,7 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
