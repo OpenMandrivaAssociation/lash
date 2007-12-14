@@ -135,4 +135,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%name
 %defattr(-,root,root)
-%{python_sitearch}/*
+%{python_sitelib}/*
