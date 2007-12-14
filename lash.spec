@@ -1,6 +1,6 @@
 %define name	lash
-%define version	0.5.3
-%define release %mkrel 2
+%define version	0.5.4
+%define release %mkrel 1
 
 %define major	1
 %define libname %mklibname %name %major
@@ -11,7 +11,7 @@ Summary: 	Linux Audio Session Handler
 Version: 	%{version}
 Release: 	%{release}
 
-Source:		%{name}-%{version}.tar.bz2
+Source:		http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.gz
 URL:		http://www.nongnu.org/lash/
 License:	GPLv2+
 Group:		Sound
