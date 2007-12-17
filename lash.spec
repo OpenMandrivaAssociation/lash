@@ -15,7 +15,6 @@ Source:		http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.
 URL:		http://www.nongnu.org/lash/
 License:	GPLv2+
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	gtk2-devel
 BuildRequires:	tetex-texi2html
 BuildRequires:	jackit-devel libalsa-devel
