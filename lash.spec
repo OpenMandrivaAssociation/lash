@@ -1,31 +1,27 @@
-%define name	lash
-%define version	0.5.4
-%define release %mkrel 4
+%define major 1
+%define libname %mklibname %{name} %{major}
+%define develname %mklibname %{name} -d
 
-%define major	1
-%define libname %mklibname %name %major
-%define develname %mklibname -d %name
-
-Name: 	 	%{name}
 Summary: 	Linux Audio Session Handler
-Version: 	%{version}
-Release: 	%{release}
-
-Source:		http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.gz
-URL:		http://www.nongnu.org/lash/
+Name:		lash
+Version:	0.5.4
+Release:	%mkrel 5
 License:	GPLv2+
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
+URL:		http://www.nongnu.org/lash/
+Source:		http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.gz
 BuildRequires:	gtk2-devel
 BuildRequires:	tetex-texi2html
-BuildRequires:	jackit-devel libalsa-devel
+BuildRequires:	jackit-devel
+BuildRequires:	libalsa-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
-BuildRequires:  e2fsprogs-devel
-BuildRequires:  ImageMagick
+BuildRequires:	e2fsprogs-devel
+BuildRequires:	ImageMagick
 BuildRequires:	python-devel
 BuildRequires:	swig
 Requires:	python
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 LASH is a session management system for JACK and ALSA audio applications on
@@ -37,31 +33,31 @@ connects different kinds of virtual audio ports together (currently JACK and
 ALSA sequencer ports). It can also be used to move entire sessions between
 computers, or post sessions on the Internet for download.
 
-%package -n 	%{libname}
-Summary:        Dynamic libraries from %name
-Group:          System/Libraries
+%package -n %{libname}
+Summary:	Dynamic libraries from %{name}
+Group:		System/Libraries
 
 %description -n %{libname}
-Dynamic libraries from %name.
+Dynamic libraries from %{name}.
 
-%package -n 	%{develname}
-Summary: 	Header files and static libraries from %name
-Group: 		Development/C
-Requires: 	%{libname} >= %{version}
-Provides: 	lib%{name}-devel = %{version}-%{release}
+%package -n %{develname}
+Summary:	Header files and static libraries from %{name}
+Group:		Development/C
+Requires:	%{libname} >= %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release} 
-Obsoletes: 	%name-devel < %{version}-%{release}
+Obsoletes:	%{name}-devel < %{version}-%{release}
 Obsoletes:	%mklibname -d lash 1
 
 %description -n %{develname}
-Libraries and includes files for developing programs based on %name.
+Libraries and includes files for developing programs based on %{name}.
 
-%package -n	python-%name
+%package -n python-%{name}
 Summary:	Python bindings for the LASH audio session handler
 Group:		Development/Python
-Requires:	%name = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
-%description -n python-%name
+%description -n python-%{name}
 Python bindings for the LASH audio session handler.
 
 %prep
@@ -69,16 +65,21 @@ Python bindings for the LASH audio session handler.
 perl -pi -e 's|lib/python|%{_lib}/python||g' configure
 
 %build
-%configure2_5x --enable-alsa-midi --enable-debug
+export CFLAGS="%{optflags} -D_GNU_SOURCE"
+
+%configure2_5x \
+	--enable-alsa-midi \
+	--enable-debug
+
 %make
 										
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
 Name=%{name}
 Comment=%{summary}
@@ -90,17 +91,15 @@ Categories=AudioVideo;Audio;AudioVideoEditing;
 EOF
 
 #icons
-mkdir -p $RPM_BUILD_ROOT/%_liconsdir
-cp icons/lash_48px.png $RPM_BUILD_ROOT/%_liconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_iconsdir
-convert -size 32x32 icons/lash_96px.png $RPM_BUILD_ROOT/%_iconsdir/%name.png
-mkdir -p $RPM_BUILD_ROOT/%_miconsdir
-cp icons/lash_16px.png $RPM_BUILD_ROOT/%_miconsdir/%name.png
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
+cp icons/lash_48px.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
+convert -size 32x32 icons/lash_96px.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
+cp icons/lash_16px.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
 
-%find_lang %name
+%find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post
@@ -123,15 +122,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc AUTHORS ChangeLog NEWS README README.SECURITY TODO
 %{_bindir}/*
-%{_datadir}/%name
-%{_datadir}/applications/mandriva-%{name}.desktop
-%{_liconsdir}/%name.png
-%{_iconsdir}/%name.png
-%{_miconsdir}/%name.png
+%{_datadir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_iconsdir}/hicolor/*/apps/%{name}.png
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
@@ -141,6 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.la
 %{_libdir}/pkgconfig/*
 
-%files -n python-%name
+%files -n python-%{name}
 %defattr(-,root,root)
 %{python_sitelib}/*
