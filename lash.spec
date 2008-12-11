@@ -17,7 +17,7 @@ BuildRequires:	libalsa-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
 BuildRequires:	e2fsprogs-devel
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	python-devel
 BuildRequires:	swig
 Requires:	python
