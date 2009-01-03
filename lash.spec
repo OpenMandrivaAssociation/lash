@@ -5,7 +5,7 @@
 Summary: 	Linux Audio Session Handler
 Name:		lash
 Version:	0.5.4
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
