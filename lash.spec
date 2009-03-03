@@ -71,7 +71,7 @@ export CFLAGS="%{optflags} -D_GNU_SOURCE"
 	--enable-alsa-midi \
 	--enable-debug
 
-%make
+make
 										
 %install
 rm -rf %{buildroot}
