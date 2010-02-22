@@ -16,7 +16,7 @@ BuildRequires:	jackit-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
-BuildRequires:	e2fsprogs-devel
+BuildRequires:	libuuid-devel
 BuildRequires:	imagemagick
 BuildRequires:	python-devel
 BuildRequires:	swig
