@@ -1,0 +1,12 @@
+--- pylash/Makefile.am.link	2011-10-16 15:03:03.000000000 +0200
++++ pylash/Makefile.am	2011-10-16 15:04:33.000000000 +0200
+@@ -25,7 +25,8 @@
+ 
+ INCLUDES = $(PYTHON_INCLUDES)
+ 
+-_lash_la_LDFLAGS = -module -avoid-version ../liblash/liblash.la
++_lash_la_LDFLAGS = -module -avoid-version 
++_lash_la_LIBADD = ../liblash/liblash.la -lpython$(PYTHON_VERSION)
+ 
+ _lash_la_SOURCES = lash.c lash.h
+ nodist__lash_la_SOURCES = lash_wrap.c
