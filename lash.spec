@@ -6,7 +6,7 @@
 Summary:	Linux Audio Session Handler
 Name:		lash
 Version:	0.5.4
-Release:	11
+Release:	12
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
@@ -15,10 +15,10 @@ Patch0:		lash-0.5.4-swig2.patch
 Patch1:		lash-0.5.4-link.patch
 Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
 Patch3:		lash-0.5.4-mga-resource.h_lash.c.patch
-BuildRequires:	gtk2-devel
+BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	texi2html
 BuildRequires:	jackit-devel
-BuildRequires:	libalsa-devel
+BuildRequires:	pkgconfig(alsa)
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
 BuildRequires:	libuuid-devel
@@ -77,9 +77,10 @@ export CFLAGS="%{optflags} -D_GNU_SOURCE -lm"
 
 %configure2_5x \
 	--enable-alsa-midi \
-	--enable-debug --disable-static
+	--enable-debug \
+    --disable-static
 
-make
+%make
 										
 %install
 %makeinstall_std
