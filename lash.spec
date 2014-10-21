@@ -6,7 +6,7 @@
 Summary:	Linux Audio Session Handler
 Name:		lash
 Version:	0.5.4
-Release:	12
+Release:	13
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
@@ -74,11 +74,11 @@ Python bindings for the LASH audio session handler.
 %build
 autoreconf -fi -Im4
 export CFLAGS="%{optflags} -D_GNU_SOURCE -lm"
+export PYTHON=%__python2
 
-%configure2_5x \
+%configure \
 	--enable-alsa-midi \
-	--enable-debug \
-    --disable-static
+	--enable-debug
 
 %make
 										
@@ -125,4 +125,4 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/*
 
 %files -n python-%{name}
-%{python_sitelib}/*
+%{py2_puresitedir}/*
