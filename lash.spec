@@ -23,7 +23,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
 BuildRequires:	libuuid-devel
 BuildRequires:	imagemagick
-BuildRequires:	python-devel
+BuildRequires:	pkgconfig(python)
 BuildRequires:	swig
 Requires:	python
 
