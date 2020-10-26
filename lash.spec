@@ -14,13 +14,16 @@ URL:		http://www.nongnu.org/lash/
 Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
 
 BuildRequires:	texi2html
-BuildRequires:	jackit-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
-BuildRequires:	libuuid-devel
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(jack)
+BuildRequires:	pkgconfig(uuid)
+BuildRequires:	pkgconfig(libtirpc)
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	swig
 Requires:	python2
 
