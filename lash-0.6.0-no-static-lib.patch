@@ -1,0 +1,11 @@
+diff -rupN lash-0.6.0.594.old/lash-1.0.pc.in lash-0.6.0.594/lash-1.0.pc.in
+--- lash-0.6.0.594.old/lash-1.0.pc.in	2008-05-20 19:20:25.000000000 +0200
++++ lash-0.6.0.594/lash-1.0.pc.in	2015-05-01 18:51:26.696080388 +0200
+@@ -7,6 +7,5 @@ Name: LASH
+ Description: Audio session management
+ Requires: @PC_REQUIRES@
+ Version: @PACKAGE_VERSION@
+-Libs: -L${libdir} -llash
+-Libs.static: -lpthread -luuid
++Libs: -L${libdir} -llash -lpthread -luuid
+ Cflags: -I${includedir}/lash-1.0

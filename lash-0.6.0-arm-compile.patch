@@ -1,0 +1,12 @@
+diff -ruN a/lashd/sigsegv.c b/lashd/sigsegv.c
+--- a/lashd/sigsegv.c	2008-09-07 08:19:51.000000000 +1000
++++ b/lashd/sigsegv.c	2020-06-17 17:40:41.331600923 +0900
+@@ -90,8 +90,6 @@
+     lash_error("info.si_errno = %d", info->si_errno);
+     lash_error("info.si_code  = %d (%s)", info->si_code, si_codes[info->si_code]);
+     lash_error("info.si_addr  = %p", info->si_addr);
+-    for(i = 0; i < NGREG; i++)
+-        lash_error("reg[%02d]       = 0x" REGFORMAT, i, ucontext->uc_mcontext.gregs[i]);
+ 
+ #if defined(SIGSEGV_STACK_X86) || defined(SIGSEGV_STACK_IA64)
+ # if defined(SIGSEGV_STACK_IA64)

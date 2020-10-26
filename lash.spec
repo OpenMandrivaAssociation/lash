@@ -5,27 +5,33 @@
 
 Summary:	Linux Audio Session Handler
 Name:		lash
-Version:	0.5.4
-Release:	14
+Version:	0.6.0
+Release:	0.rc2.0
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
-Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.gz
-Patch0:		lash-0.5.4-swig2.patch
-Patch1:		lash-0.5.4-link.patch
+#Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
+Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
+Patch0:		lash-0.6.0-no-static-lib.patch
+Patch1:		lash-0.6.0-gcc47.patch
 Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
-Patch3:		lash-0.5.4-mga-resource.h_lash.c.patch
-BuildRequires:	pkgconfig(gtk+-2.0)
+Patch3:		lash-0.6.0-fix-format-string.patch
+#on aarch64 not provided 'gregs' or may be it have other name? 
+Patch4:		lash-0.6.0-arm-compile.patch
+
 BuildRequires:	texi2html
-BuildRequires:	jackit-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
-BuildRequires:	libuuid-devel
 BuildRequires:	imagemagick
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(jack)
+BuildRequires:	pkgconfig(uuid)
+BuildRequires:	pkgconfig(libtirpc)
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	swig
-Requires:	python
+Requires:	python2
 
 %description
 LASH is a session management system for JACK and ALSA audio applications on
@@ -56,29 +62,36 @@ Obsoletes:	%{badevname} < %{version}-%{release}
 %description -n %{develname}
 Libraries and includes files for developing programs based on %{name}.
 
-%package -n python-%{name}
-Summary:	Python bindings for the LASH audio session handler
+%package -n python2-%{name}
+Summary:	Python2 bindings for the LASH audio session handler
 Group:		Development/Python
 Requires:	%{name} = %{version}-%{release}
 
-%description -n python-%{name}
+%description -n python2-%{name}
 Python bindings for the LASH audio session handler.
 
 %prep
-%setup -q
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0 -b .lash-0.5.4-mga-texi2html_Makefile.am.patch
-%patch3 -p0 -b .lash-0.5.4-mga-resource.h_lash.c.patch
+%setup -qn %{name}-%{version}.594
+%patch0 -p1
+%patch1 -p1
+%patch2 -p0
+%patch3 -p1
 
+%ifarch %{armx}
+%patch4 -p1
+%endif
 %build
-autoreconf -fi -Im4
-export CFLAGS="%{optflags} -D_GNU_SOURCE -lm"
 export PYTHON=%__python2
+autoreconf -fi -Im4
+#export CFLAGS="%%{optflags} -D_GNU_SOURCE"
+export LIBS="-ldl -lpthread -ltirpc -lm"
 
-%configure \
-	--enable-alsa-midi \
-	--enable-debug
+#perl -pi -e 's|lib/python|%%{_lib}/python||g' configure
+
+%configure	--disable-static
+# To fix python installation path
+perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' Makefile
+perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' pylash/Makefile
 
 %make
 										
@@ -113,6 +126,7 @@ find %{buildroot} -name '*.la' -delete
 %doc AUTHORS ChangeLog NEWS README README.SECURITY TODO
 %{_bindir}/*
 %{_datadir}/%{name}
+%{_datadir}/dbus-1/services/*.service
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.png
 
@@ -124,5 +138,5 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
-%files -n python-%{name}
-%{py2_puresitedir}/*
+%files -n python2-%{name}
+%{python2_sitearch}/*
