@@ -10,7 +10,8 @@ Release:	0.rc2.0
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
-Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
+#Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
+Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
 Patch0:		lash-0.5.4-swig2.patch
 Patch1:		lash-0.5.4-link.patch
 Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
