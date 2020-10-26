@@ -66,7 +66,7 @@ Requires:	%{name} = %{version}-%{release}
 Python bindings for the LASH audio session handler.
 
 %prep
-%setup -qn %{name}-%{version}_rc2
+%setup -qn %{name}-%{version}.594
 %patch0 -p0
 %patch1 -p0
 %patch2 -p0 -b .lash-0.5.4-mga-texi2html_Makefile.am.patch
