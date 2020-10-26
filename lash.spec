@@ -66,15 +66,26 @@ Python bindings for the LASH audio session handler.
 
 %prep
 %setup -qn %{name}-%{version}.594
+%patch0 -p1
+%patch1 -p1
+%patch2 -p0
+%patch3 -p1
 
+%ifarch %{armx}
+%patch4 -p1
+%endif
 %build
-autoreconf -fi -Im4
-export CFLAGS="%{optflags} -D_GNU_SOURCE -lm"
 export PYTHON=%__python2
+autoreconf -fi -Im4
+#export CFLAGS="%%{optflags} -D_GNU_SOURCE"
+export LIBS="-ldl -lpthread -ltirpc -lm"
 
-%configure \
-	--enable-alsa-midi \
-	--enable-debug
+#perl -pi -e 's|lib/python|%%{_lib}/python||g' configure
+
+%configure	--disable-static
+# To fix python installation path
+perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' Makefile
+perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' pylash/Makefile
 
 %make
 										
