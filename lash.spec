@@ -5,12 +5,12 @@
 
 Summary:	Linux Audio Session Handler
 Name:		lash
-Version:	0.5.4
-Release:	14
+Version:	0.6.0
+Release:	0.rc2.0
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
-Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.gz
+Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
 Patch0:		lash-0.5.4-swig2.patch
 Patch1:		lash-0.5.4-link.patch
 Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
@@ -65,7 +65,7 @@ Requires:	%{name} = %{version}-%{release}
 Python bindings for the LASH audio session handler.
 
 %prep
-%setup -q
+%setup -qn %{name}-%{version}_rc2
 %patch0 -p0
 %patch1 -p0
 %patch2 -p0 -b .lash-0.5.4-mga-texi2html_Makefile.am.patch
