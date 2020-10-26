@@ -12,11 +12,7 @@ Group:		Sound
 URL:		http://www.nongnu.org/lash/
 #Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
 Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
-Patch0:		lash-0.5.4-swig2.patch
-Patch1:		lash-0.5.4-link.patch
-Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
-Patch3:		lash-0.5.4-mga-resource.h_lash.c.patch
-BuildRequires:	pkgconfig(gtk+-2.0)
+
 BuildRequires:	texi2html
 BuildRequires:	jackit-devel
 BuildRequires:	pkgconfig(alsa)
@@ -24,9 +20,9 @@ BuildRequires:	libxml2-devel
 BuildRequires:	readline-devel 
 BuildRequires:	libuuid-devel
 BuildRequires:	imagemagick
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	swig
-Requires:	python
+Requires:	python2
 
 %description
 LASH is a session management system for JACK and ALSA audio applications on
@@ -67,10 +63,6 @@ Python bindings for the LASH audio session handler.
 
 %prep
 %setup -qn %{name}-%{version}.594
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0 -b .lash-0.5.4-mga-texi2html_Makefile.am.patch
-%patch3 -p0 -b .lash-0.5.4-mga-resource.h_lash.c.patch
 
 %build
 autoreconf -fi -Im4
