@@ -6,7 +6,7 @@
 Summary:	Linux Audio Session Handler
 Name:		lash
 Version:	0.6.0
-Release:	0.rc2.0
+Release:	0.rc2.1
 License:	GPLv2+
 Group:		Sound
 URL:		http://www.nongnu.org/lash/
@@ -93,10 +93,10 @@ export LIBS="-ldl -lpthread -ltirpc -lm"
 perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' Makefile
 perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' pylash/Makefile
 
-%make
+%make_build
 										
 %install
-%makeinstall_std
+%make_install
 
 #menu
 mkdir -p %{buildroot}%{_datadir}/applications
