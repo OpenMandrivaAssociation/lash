@@ -62,12 +62,12 @@ Obsoletes:	%{badevname} < %{version}-%{release}
 %description -n %{develname}
 Libraries and includes files for developing programs based on %{name}.
 
-%package -n python-%{name}
-Summary:	Python bindings for the LASH audio session handler
+%package -n python2-%{name}
+Summary:	Python2 bindings for the LASH audio session handler
 Group:		Development/Python
 Requires:	%{name} = %{version}-%{release}
 
-%description -n python-%{name}
+%description -n python2-%{name}
 Python bindings for the LASH audio session handler.
 
 %prep
@@ -126,6 +126,7 @@ find %{buildroot} -name '*.la' -delete
 %doc AUTHORS ChangeLog NEWS README README.SECURITY TODO
 %{_bindir}/*
 %{_datadir}/%{name}
+%{_datadir}/dbus-1/services/*.service
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.png
 
@@ -137,5 +138,5 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
-%files -n python-%{name}
-#{py2_puresitedir}/*
+%files -n python2-%{name}
+%{python2_sitearch}/*
