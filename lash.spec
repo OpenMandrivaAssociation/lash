@@ -138,4 +138,4 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/*
 
 %files -n python-%{name}
-%{py2_puresitedir}/*
+#{py2_puresitedir}/*
