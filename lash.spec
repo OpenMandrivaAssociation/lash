@@ -12,6 +12,12 @@ Group:		Sound
 URL:		http://www.nongnu.org/lash/
 #Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
 Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
+Patch0:		lash-0.6.0-no-static-lib.patch
+Patch1:		lash-0.6.0-gcc47.patch
+Patch2:		lash-0.5.4-mga-texi2html_Makefile.am.patch
+Patch3:		lash-0.6.0-fix-format-string.patch
+#on aarch64 not provided 'gregs' or may be it have other name? 
+Patch4:		lash-0.6.0-arm-compile.patch
 
 BuildRequires:	texi2html
 BuildRequires:	pkgconfig(alsa)
