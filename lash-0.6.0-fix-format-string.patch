@@ -1,0 +1,12 @@
+diff -rupN lash-0.6.0.594.old/pylash/lash_wrap.c lash-0.6.0.594/pylash/lash_wrap.c
+--- lash-0.6.0.594.old/pylash/lash_wrap.c	2008-11-09 22:46:32.000000000 +0100
++++ lash-0.6.0.594/pylash/lash_wrap.c	2015-05-01 20:27:42.357174601 +0200
+@@ -850,7 +850,7 @@ SWIG_Python_AddErrorMsg(const char* mesg
+     Py_DECREF(old_str);
+     Py_DECREF(value);
+   } else {
+-    PyErr_Format(PyExc_RuntimeError, mesg);
++    PyErr_Format(PyExc_RuntimeError, "%s", mesg);
+   }
+ }
+ 
