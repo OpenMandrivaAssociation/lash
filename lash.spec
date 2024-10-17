@@ -9,7 +9,7 @@ Version:	0.6.0
 Release:	0.rc2.2
 License:	GPLv2+
 Group:		Sound
-URL:		http://www.nongnu.org/lash/
+URL:		https://www.nongnu.org/lash/
 #Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}.tar.bz2
 Source0:	http://download.savannah.gnu.org/releases/%name/%{name}-%{version}_rc2.tar.bz2
 Patch0:		lash-0.6.0-no-static-lib.patch
