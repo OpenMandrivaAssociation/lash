@@ -19,6 +19,11 @@ Patch3:		lash-0.6.0-fix-format-string.patch
 #on aarch64 not provided 'gregs' or may be it have other name? 
 Patch4:		lash-0.6.0-arm-compile.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	texi2html
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	libxml2-devel
