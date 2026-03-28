@@ -77,13 +77,13 @@ Python bindings for the LASH audio session handler.
 
 %prep
 %setup -qn %{name}-%{version}.594
-%patch0 -p1
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p0
+%patch 3 -p1
 
 %ifarch %{armx}
-%patch4 -p1
+%patch 4 -p1
 %endif
 %build
 export PYTHON=%__python2
