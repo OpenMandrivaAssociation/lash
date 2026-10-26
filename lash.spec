@@ -102,10 +102,10 @@ export LIBS="-ldl -lpthread -ltirpc -lm"
 perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' Makefile
 perl -pi -e 's|${prefix}/lib/python2.7|${prefix}/%{_lib}/python%{py2_ver}|g' pylash/Makefile
 
-%make_build
+%make_build LIBTOOL=slibtool-shared
 										
 %install
-%make_install
+%make_install LIBTOOL=slibtool-shared
 
 #menu
 mkdir -p %{buildroot}%{_datadir}/applications
