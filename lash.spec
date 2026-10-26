@@ -93,7 +93,8 @@ Python bindings for the LASH audio session handler.
 export PYTHON=%__python2
 autoreconf -fi -Im4
 #export CFLAGS="%%{optflags} -D_GNU_SOURCE"
-export LIBS="-ldl -lpthread -ltirpc -lm"
+# pylash calls Python directly. libpython is not on the libtool link line.
+export LIBS="-ldl -lpthread -ltirpc -lm -lpython2.7"
 
 #perl -pi -e 's|lib/python|%%{_lib}/python||g' configure
 
